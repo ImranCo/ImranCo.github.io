@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Insights Newsletter — Imran &amp; Co Solicitors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand:    #321108;
+      --brand-dk: #220b05;
+      --gold:     #c8a96e;
+      --gold-lt:  #e8d5a3;
+      --paper:    #f5f0e8;
+      --cream:    #ede7d8;
+      --ink:      #1a1208;
+      --muted:    #8a7d6a;
+      --border:   #d4c9b4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Strip any margin/padding Microsoft Pages injects */
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    /* ── Full-width page wrapper — owns the background ── */
+    .page-wrap {
+      width: 100vw;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient radial glow */
+    .page-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 10% 15%, rgba(50,17,8,.07) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 65% at 90% 85%, rgba(200,169,110,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Subtle grain */
+    .page-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      width: 200%; height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .025;
+      pointer-events: none;
+    }
+
+    /* ── Decorative grid lines ── */
+    .deco-line { position: absolute; background: var(--border); opacity: .45; }
+    .deco-line.v { width: 1px; top: 0; bottom: 0; }
+    .deco-line.h { height: 1px; left: 0; right: 0; }
+    .deco-line.l1 { left: 7vw; }
+    .deco-line.l2 { right: 7vw; }
+    .deco-line.t1 { top: 7vh; }
+    .deco-line.b1 { bottom: 7vh; }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      width: min(700px, 94vw);
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 2px 0 var(--border),
+        0 4px 0 var(--cream),
+        14px 28px 72px rgba(50,17,8,.12);
+      animation: rise .9s cubic-bezier(.22,1,.36,1) both;
+      overflow: hidden;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════
+       MAIN BODY
+    ════════════════════════════════ */
+
+    /* ── Hero band ── */
+    .body-hero {
+      background: var(--paper);
+      border-bottom: 1px solid var(--cream);
+      padding: 2.8rem 3rem 2.4rem;
+      position: relative;
+      animation: rise .8s .05s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .body-hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--gold);
+    }
+
+    .body-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 2.9rem);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--brand);
+      margin-bottom: .8rem;
+    }
+
+    .body-hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: .88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+    }
+
+    /* ── Benefits ── */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--cream);
+      border-bottom: 1px solid var(--cream);
+      animation: rise .8s .12s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .benefit {
+      padding: 1.4rem 1.5rem;
+      border-right: 1px solid var(--cream);
+      position: relative;
+    }
+
+    .benefit:last-child { border-right: none; }
+
+    .benefit::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 1.5rem; right: 1.5rem;
+      height: 2px;
+      background: transparent;
+      transition: background .25s;
+    }
+
+    .benefit:hover::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .benefit-icon {
+      width: 32px; height: 32px;
+      margin-bottom: .75rem;
+      color: var(--gold);
+    }
+
+    .benefit-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: .3rem;
+    }
+
+    .benefit-desc {
+      font-size: .75rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Form section ── */
+    .body-form {
+      padding: 2.4rem 3rem 2rem;
+      animation: rise .8s .2s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--brand);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .form-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      margin-bottom: .75rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: .67rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--paper);
+      font-family: 'Jost', sans-serif;
+      font-size: .88rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      border-radius: 0;
+    }
+
+    input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(50,17,8,.07);
+    }
+
+    input::placeholder { color: #c2bdb5; }
+
+    /* ── Submit button ── */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: var(--brand);
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      margin-top: .75rem;
+    }
+
+    .btn:hover { background: var(--brand-dk); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    .btn-arrow {
+      width: 14px; height: 14px;
+      border-right: 2px solid currentColor;
+      border-top: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .btn:hover .btn-arrow { transform: rotate(45deg) translate(2px,-2px); }
+
+    /* Spinner */
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(200,169,110,.35);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Messages ── */
+    .msg {
+      margin-top: 1rem;
+      padding: .8rem 1rem;
+      font-size: .82rem;
+      border-left: 3px solid;
+      display: none;
+    }
+    .msg.success { border-color: #3a7d44; background: #f0f7f1; color: #2a5c31; }
+    .msg.error   { border-color: var(--brand); background: #fdf4f0; color: var(--brand); }
+
+    /* ── Trust row ── */
+    .trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--cream);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .7rem;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .trust-item svg {
+      width: 13px; height: 13px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .note-link {
+      font-size: .7rem;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .note-link a { color: var(--brand); text-decoration: none; }
+    .note-link a:hover { text-decoration: underline; }
+
+    /* ── Success view ── */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 3.5rem 3rem 3rem;
+    }
+
+    .checkmark {
+      width: 64px; height: 64px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.6rem;
+      animation: pop .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+    .checkmark svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 2; }
+
+    .success-view h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: .6rem;
+    }
+
+    .success-view h2 em { font-style: italic; color: var(--gold); }
+
+    .success-view p {
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 560px) {
+      .body-hero, .body-form { padding: 2rem 1.6rem 1.75rem; }
+      .body-hero::before { display: none; }
+      .benefits { grid-template-columns: 1fr; }
+      .benefit { border-right: none; border-bottom: 1px solid var(--cream); }
+      .benefit:last-child { border-bottom: none; }
+      .field-row { grid-template-columns: 1fr; }
+      .trust-row { flex-wrap: wrap; gap: .6rem; }
+      .success-view { padding: 2.5rem 1.6rem 2.5rem; }
+    }
+
+    /* ── Header strip ── */
+    .ic-header {
+      background: #321108;
+      border-top: 3px solid #c8a96e;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .ic-header__logo {
+      padding: 20px 0 20px 24px;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .ic-header__logo a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .ic-header__logo img {
+      height: 54px;
+      width: auto;
+      display: block;
+    }
+
+    .ic-header__centre {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 8px;
+    }
+
+    .ic-header__name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: .4px;
+      text-align: center;
+    }
+
+    .ic-header__tagline {
+      font-family: 'Jost', Arial, sans-serif;
+      font-size: 8.5px;
+      font-weight: 300;
+      color: #c8a96e;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    .ic-header__photo {
+      width: 86px;
+      display: flex;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .ic-header__photo img {
+      display: block;
+      width: 86px;
+      height: 106px;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    @media (max-width: 520px) {
+      .ic-header__logo { padding-left: 16px; }
+      .ic-header__logo img { height: 44px; }
+      .ic-header__photo { width: 70px; }
+      .ic-header__photo img { width: 70px; height: 88px; }
+    }
+
+    /* ── Footer strip ── */
+    .ic-footer {
+      background: #321108;
+      padding: 14px 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .ic-footer__info {
+      font-family: 'Jost', Arial, sans-serif;
+      font-size: .7rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, .35);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .ic-footer__info a {
+      color: rgba(200, 169, 110, .55);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .ic-footer__info a:hover { color: #c8a96e; }
+
+    .ic-footer__phone {
+      font-family: 'Jost', Arial, sans-serif;
+      font-size: .7rem;
+      font-weight: 400;
+      color: #c8a96e;
+      letter-spacing: .08em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .ic-footer__phone:hover { color: #e8d5a3; }
+
+    @media (max-width: 520px) {
+      .ic-footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 1.6rem;
+        gap: .75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- Decorative grid lines -->
+  <div class="deco-line v l1"></div>
+  <div class="deco-line v l2"></div>
+  <div class="deco-line h t1"></div>
+  <div class="deco-line h b1"></div>
+
+  <main class="card">
+
+    <!-- ── Imran & Co — Header ── -->
+    <div class="ic-header">
+
+      <div class="ic-header__logo">
+        <a href="https://imransolicitors.co.uk/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://raw.githubusercontent.com/ImranCo/Assets/refs/heads/main/logo.png"
+            alt="Imran &amp; Co Solicitors Logo"
+          />
+        </a>
+      </div>
+
+      <div class="ic-header__centre">
+        <div class="ic-header__name">Imran &amp; Co Solicitors</div>
+        <div class="ic-header__tagline">Immigration · Family Law · London</div>
+      </div>
+
+      <div class="ic-header__photo">
+        <img
+          src="https://raw.githubusercontent.com/ImranCo/Assets/refs/heads/main/imran.png"
+          alt="Imran"
+        />
+      </div>
+
+    </div>
+    <!-- ── /Header ── -->
+
+    <!-- ════════════════ FORM VIEW ════════════════ -->
+    <div id="formView">
+
+      <!-- Hero copy -->
+      <div class="body-hero">
+        <div class="hero-eyebrow">Legal Insights Newsletter</div>
+        <h1>The law changes.<br /><em>Stay ahead of it.</em></h1>
+        <p class="hero-sub">
+          Expert guidance on immigration, family law, and housing — written by our solicitors and delivered to your inbox. Clear, timely, and relevant to you.
+        </p>
+      </div>
+
+      <!-- What you receive -->
+      <div class="benefits">
+
+        <div class="benefit">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <div class="benefit-title">Immigration Law</div>
+          <div class="benefit-desc">Visa rule changes, Home Office updates, and sponsor licence guidance.</div>
+        </div>
+
+        <div class="benefit">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <div class="benefit-title">Family Law</div>
+          <div class="benefit-desc">Divorce, child arrangements, and court process explained simply.</div>
+        </div>
+
+        <div class="benefit">
+          <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <div class="benefit-title">Regulatory Updates</div>
+          <div class="benefit-desc">Housing, employment, and legislative changes affecting your rights.</div>
+        </div>
+
+      </div>
+
+      <!-- Form -->
+      <div class="body-form">
+
+        <div class="form-heading">Join the mailing list</div>
+
+        <form id="subscribeForm" novalidate>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Your first name" autocomplete="given-name" />
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Your last name" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field full">
+              <label for="email">Email address <span style="color:var(--gold)">*</span></label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">
+            <span class="btn-text">Subscribe to Newsletter</span>
+            <div class="spinner" id="spinner"></div>
+            <div class="btn-arrow" id="arrow"></div>
+          </button>
+
+          <div class="msg success" id="msgSuccess">
+            ✓ You're subscribed! Check your inbox for a confirmation.
+          </div>
+          <div class="msg error" id="msgError">
+            Something went wrong. Please try again.
+          </div>
+
+        </form>
+
+        <!-- Trust row -->
+        <div class="trust-row">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No spam, ever
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Unsubscribe any time
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Data stored securely
+          </div>
+          <div class="note-link">
+            <a href="privacy-policy.html">Privacy Policy</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- ════════════════ /FORM VIEW ════════════════ -->
+
+    <!-- ── Success view ── -->
+    <div class="success-view" id="successView">
+      <div class="checkmark">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Welcome <em>aboard.</em></h2>
+      <p>
+        You've been added to our legal insights list.<br />
+        Expect expert guidance in your inbox soon.
+      </p>
+    </div>
+
+    <!-- ── Imran & Co — Footer ── -->
+    <div class="ic-footer">
+
+      <p class="ic-footer__info">
+        First Floor, 221 Whitechapel Road, London<br />
+        <a href="https://imransolicitors.co.uk" target="_blank" rel="noopener noreferrer">imransolicitors.co.uk</a>
+        &nbsp;·&nbsp;
+        <a href="mailto:info@imransolicitors.co.uk">info@imransolicitors.co.uk</a>
+      </p>
+
+      <a class="ic-footer__phone" href="tel:02078715365">020 7871 5365</a>
+
+    </div>
+    <!-- ── /Footer ── -->
+
+  </main>
+
+</div><!-- /page-wrap -->
+
+  <script>
+    // ── Power Automate ───────────────────────────────────────────
+    const POWER_AUTOMATE_URL = 'https://85d294f697eee25aaab51adf52c9ab.ab.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/88e8790ccc844eb9a018a58d1efe7d64/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-U9Gf5uI7WBUCt-l_AMj3hC9SkBAixRqXAIK_s-YAdY';
+
+    const form        = document.getElementById('subscribeForm');
+    const submitBtn   = document.getElementById('submitBtn');
+    const spinner     = document.getElementById('spinner');
+    const arrow       = document.getElementById('arrow');
+    const btnText     = document.querySelector('.btn-text');
+    const msgSuccess  = document.getElementById('msgSuccess');
+    const msgError    = document.getElementById('msgError');
+    const successView = document.getElementById('successView');
+    const formView    = document.getElementById('formView');
+
+    function setLoading(on) {
+      submitBtn.disabled    = on;
+      spinner.style.display = on ? 'block' : 'none';
+      arrow.style.display   = on ? 'none'  : 'block';
+      btnText.textContent   = on ? 'Subscribing…' : 'Subscribe to Newsletter';
+    }
+
+    function showMsg(el) {
+      msgSuccess.style.display = 'none';
+      msgError.style.display   = 'none';
+      el.style.display = 'block';
+    }
+
+    function showSuccess() {
+      formView.style.opacity    = '0';
+      formView.style.transition = 'opacity .4s';
+      setTimeout(() => {
+        formView.style.display    = 'none';
+        successView.style.display = 'block';
+      }, 400);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email     = document.getElementById('email').value.trim();
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showMsg(msgError);
+        msgError.textContent = 'Please enter a valid email address.';
+        document.getElementById('email').focus();
+        return;
+      }
+
+      if (POWER_AUTOMATE_URL === 'YOUR_POWER_AUTOMATE_HTTP_TRIGGER_URL_HERE') {
+        setLoading(true);
+        await new Promise(r => setTimeout(r, 1200));
+        setLoading(false);
+        showSuccess();
+        return;
+      }
+
+      setLoading(true);
+      msgSuccess.style.display = 'none';
+      msgError.style.display   = 'none';
+
+      try {
+        const res = await fetch(POWER_AUTOMATE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, firstName, lastName, subscribedAt: new Date().toISOString() })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        showSuccess();
+
+      } catch (err) {
+        console.error(err);
+        showMsg(msgError);
+        msgError.textContent = 'Something went wrong. Please try again.';
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

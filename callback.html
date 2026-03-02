@@ -732,7 +732,7 @@
   <script>
     // ── Power Automate ───────────────────────────────────────────
     // Replace with your new callback Flow HTTP trigger URL
-    const POWER_AUTOMATE_URL = 'YOUR_CALLBACK_FLOW_URL_HERE';
+    const POWER_AUTOMATE_URL = 'https://85d294f697eee25aaab51adf52c9ab.ab.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/6cc41cab6a684bd49875c03b446bb602/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Danun4gpbOd4OcwWTnTpJtqo9eWgbsxqOqVQbA5d-CY';
 
     const form        = document.getElementById('callbackForm');
     const submitBtn   = document.getElementById('submitBtn');
@@ -784,15 +784,6 @@
       if (!reason) {
         showMsg(msgError, 'Please briefly describe the reason for your call.');
         document.getElementById('reason').focus();
-        return;
-      }
-
-      // Demo mode — remove this block once you add the real Flow URL
-      if (POWER_AUTOMATE_URL === 'https://85d294f697eee25aaab51adf52c9ab.ab.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/6cc41cab6a684bd49875c03b446bb602/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Danun4gpbOd4OcwWTnTpJtqo9eWgbsxqOqVQbA5d-CY') {
-        setLoading(true);
-        await new Promise(r => setTimeout(r, 1200));
-        setLoading(false);
-        showSuccess();
         return;
       }
 

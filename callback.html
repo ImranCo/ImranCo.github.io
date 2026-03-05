@@ -631,6 +631,7 @@
             <div class="field full">
               <label for="phone">Phone number <span style="color:var(--gold)">*</span></label>
               <input type="tel" id="phone" name="phone" placeholder="+44 7700 000000" autocomplete="tel" required />
+              <span id="phoneHint" style="font-size:.67rem;color:var(--muted);margin-top:.1rem;">UK numbers only — e.g. 07700 123456 or +44 20 7000 0000</span>
             </div>
           </div>
 
@@ -742,6 +743,14 @@
 </div><!-- /page-wrap -->
 
   <script>
+    // ── UK phone validation ──────────────────────────────────────
+    function validateUKPhone(raw) {
+      // Strip spaces, dashes, brackets, dots
+      const cleaned = raw.replace(/[\s\-().]/g, '');
+      // Must match: +44, 0044, or 0 followed by a valid UK area code digit and 9 more digits
+      return /^(\+44|0044|0)[1-9]\d{9}$/.test(cleaned);
+    }
+
     // ── Power Automate ───────────────────────────────────────────
     // Replace with your new callback Flow HTTP trigger URL
     const POWER_AUTOMATE_URL = 'https://85d294f697eee25aaab51adf52c9ab.ab.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/6cc41cab6a684bd49875c03b446bb602/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Danun4gpbOd4OcwWTnTpJtqo9eWgbsxqOqVQbA5d-CY';
@@ -779,6 +788,29 @@
       }, 400);
     }
 
+    // Real-time feedback on phone field
+    const phoneInput = document.getElementById('phone');
+    const phoneHint  = document.getElementById('phoneHint');
+
+    phoneInput.addEventListener('blur', () => {
+      const val = phoneInput.value.trim();
+      if (val && !validateUKPhone(val)) {
+        phoneInput.style.borderColor = '#b00';
+        phoneHint.textContent = 'Sorry, That doesn\'t look like a valid UK number.';
+        phoneHint.style.color = '#b00';
+      } else {
+        phoneInput.style.borderColor = '';
+        phoneHint.textContent = 'UK numbers only — e.g. 07700 123456 or +44 20 7000 0000';
+        phoneHint.style.color = 'var(--muted)';
+      }
+    });
+
+    phoneInput.addEventListener('input', () => {
+      phoneInput.style.borderColor = '';
+      phoneHint.textContent = 'UK numbers only — e.g. 07700 123456 or +44 20 7000 0000';
+      phoneHint.style.color = 'var(--muted)';
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -787,9 +819,9 @@
       const firstName = document.getElementById('firstName').value.trim();
       const lastName  = document.getElementById('lastName').value.trim();
 
-      // Basic validation
-      if (!phone) {
-        showMsg(msgError, 'Please enter your phone number.');
+      // UK phone validation
+      if (!phone || !validateUKPhone(phone)) {
+        showMsg(msgError, 'Please enter a valid UK phone number (e.g. 07700 123456 or +44 20 7000 0000).');
         document.getElementById('phone').focus();
         return;
       }
